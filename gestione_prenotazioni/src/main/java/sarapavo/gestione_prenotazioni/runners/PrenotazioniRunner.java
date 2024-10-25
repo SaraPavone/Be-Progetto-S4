@@ -9,6 +9,7 @@ import sarapavo.gestione_prenotazioni.entities.Edificio;
 import sarapavo.gestione_prenotazioni.entities.Postazione;
 import sarapavo.gestione_prenotazioni.entities.TipoPostazione;
 import sarapavo.gestione_prenotazioni.services.EdificiService;
+import sarapavo.gestione_prenotazioni.services.PostazioniService;
 import sarapavo.gestione_prenotazioni.services.PrenotazioneService;
 import sarapavo.gestione_prenotazioni.services.UtentiService;
 
@@ -27,6 +28,8 @@ public class PrenotazioniRunner implements CommandLineRunner {
     private PrenotazioneService prenotazioneService;
     @Autowired
     private EdificiService edificiService;
+    @Autowired
+    private PostazioniService postazioniService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -49,19 +52,19 @@ public class PrenotazioniRunner implements CommandLineRunner {
 //        }
 
 
-
         List<Postazione> newPostazioneLista = new ArrayList<>();
 
-        Edificio randomEdif = new Edificio("Ferdinando Cattaneo","Sesto Piersilvio lido", "Contrada Santoro 491, San Damiana nell'emilia, MT 55740");
+        Edificio randomEdif = new Edificio("Ferdinando Cattaneo", "Sesto Piersilvio lido", "Contrada Santoro 491, San Damiana nell'emilia, MT 55740");
 
         for (int i = 0; i < 10; i++) {
-            String  descrizione = faker.lorem().characters(50);
+            String descrizione = faker.lorem().characters(50);
             TipoPostazione tipo = TipoPostazione.randomTipo();
-            int numeroMaxOccupanti = new Random().nextInt(91)+ 10;
+            int numeroMaxOccupanti = new Random().nextInt(91) + 10;
             boolean isFree = new Random().nextBoolean();
 
-            Postazione newPostazione = new Postazione()
-
+            Postazione newPostazione = new Postazione();
+            newPostazioneLista.add(newPostazione);
+            postazioniService.savePostazione(newPostazione);
         }
     }
 }
